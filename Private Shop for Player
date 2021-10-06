@@ -1,0 +1,322 @@
+1) Open uitooltip.py and search:
+
+	def AppendPrice(self, price):
+	....................
+	..............
+	.........
+	........
+
+change with:
+
+	def GetPriceColorFree(self, price):
+		if price == 0:
+			return self.GREEN_COLOR_PRICE_FREE
+
+	def AppendPrice(self, price):
+		self.AppendSpace(5)
+		if price == 0:
+			self.AppendTextLine(localeInfo.TOOLTIP_BUYPRICE_FREE, self.GetPriceColorFree(price))
+		else:
+			self.AppendTextLine(localeInfo.TOOLTIP_BUYPRICE  % (localeInfo.NumberToMoneyString(price)), self.GetPriceColor(price))
+
+
+2) search :
+
+def AppendSellingPrice(self, price):
+/..............................
+............................
+...........................
+....................
+...........
+
+change with :
+
+	def AppendSellingPrice(self, price):
+		if item.IsAntiFlag(item.ITEM_ANTIFLAG_SELL):
+			self.AppendTextLine(localeInfo.TOOLTIP_ANTI_SELL, self.DISABLE_COLOR)
+			self.AppendSpace(5)
+		else:
+			if price == 0:
+				self.AppendTextLine(localeInfo.TOOLTIP_BUYPRICE_FREE, self.GetPriceColorFree(price))
+				self.AppendSpace(5)
+			else:
+				self.AppendTextLine(localeInfo.TOOLTIP_SELLPRICE % (localeInfo.NumberToMoneyString(price)), self.GetPriceColor(price))
+				self.AppendSpace(5)
+
+
+3) search :
+
+LOW_PRICE_COLOR = grp.GenerateColor(0.7, 0.7, 0.7, 1.0)
+
+change with:
+
+	LOW_PRICE_COLOR = grp.GenerateColor(0.7, 0.7, 0.7, 1.0)
+	GREEN_COLOR_PRICE_FREE = grp.GenerateColor(0.9, 0.5745, 0.5627, 1.0)
+
+
+
+
+------------------------------------------
+
+
+1) Open now in uiprivateshopbuilder.py and search
+
+		if int(text) <= 0:
+			return True
+
+change with:
+
+		if int(text) <= -1:
+			return True
+
+
+---------------------------------------------
+
+1) Open uicommon.py and search
+
+	def Open(self):
+		self.inputValue.SetText("")
+
+change with:
+
+	def Open(self):
+		self.inputValue.SetText("0")
+
+
+
+------------------------------------
+
+1) open networkmodule and search
+
+		AcceptButton = self.GetChild("accept")
+		AcceptButton.SetText(ButtonName)
+		AcceptButton.SetEvent(ui.__mem_func__(self.Close))
+
+change with
+
+		AcceptButton = self.GetChild("accept")
+		AcceptButton.SetText(ButtonName)
+		AcceptButton.SetEvent(ui.__mem_func__(self.Close))
+		Accept2Button = self.GetChild("accept")
+		Accept2Button.SetText(ButtonName)
+		Accept2Button.SetEvent(ui.__mem_func__(self.Close))
+
+
+---------------------------------------------------------
+
+
+open again uicommon and search
+
+in class InputDialogWithDescription(InputDialog): search
+
+
+			self.cancelButton = getObject("CancelButton")
+
+change with:
+
+			self.accept2Button = getObject("Accept2Button")
+			self.cancelButton = getObject("CancelButton")
+
+
+
+
+
+Now search in  class InputDialogWithDescription2(InputDialog):
+
+			self.cancelButton = getObject("CancelButton")
+
+change with:
+
+			self.accept2Button = getObject("Accept2Button")
+			self.cancelButton = getObject("CancelButton")
+
+
+
+
+
+search in class MoneyInputDialog(ui.ScriptWindow):
+
+			self.cancelButton = getObject("CancelButton")
+
+
+change with : 
+
+			self.accept2Button = getObject("Accept2Button")
+			self.cancelButton = getObject("CancelButton")
+
+
+
+
+
+Go in class MoneyInputDialog(ui.ScriptWindow):  search
+
+		self.acceptButton = None
+
+
+change with : 
+
+		self.acceptButton = None
+		self.accept2Button = None
+
+
+search again
+	def SetAcceptEvent(self, event):
+		self.acceptButton.SetEvent(event)
+		self.inputValue.OnIMEReturn = event
+
+change with
+	def SetAcceptEvent(self, event):
+		self.acceptButton.SetEvent(event)
+		self.accept2Button.SetEvent(event)
+		self.inputValue.OnIMEReturn = event
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------
+
+
+OPEN IN  MONEYINPUTDIALOG.PY   IN UISCRIPT FOLDER
+
+CHANGE ALL CODE WITH:
+
+import uiScriptLocale
+import localeInfo
+import app
+BOARD_HEIGHT = 180
+window = {
+	"name" : "InputDialog",
+
+	"x" : 0,
+	"y" : 0,
+
+	"style" : ("movable", "float",),
+
+	"width" : 200,
+	"height" : BOARD_HEIGHT,
+
+	"children" :
+	(
+		{
+			"name" : "board",
+			"type" : "board_with_titlebar",
+
+			"x" : 0,
+			"y" : 0,
+
+			"width" : 200,
+			"height" : BOARD_HEIGHT,
+
+			"title" : "",
+
+			"children" :
+			(
+
+				## Input Slot
+				{
+					"name" : "InputSlot",
+					"type" : "slotbar",
+
+					"x" : 0,
+					"y" : 34,
+					"width" : 90,
+					"height" : 18,
+					"horizontal_align" : "center",
+
+					"children" :
+					(
+						{
+							"name" : "InputValue",
+							"type" : "editline",
+
+							"x" : 3,
+							"y" : 3,
+
+							"width" : 90,
+							"height" : 18,
+
+							"input_limit" : 12,
+						},
+					),
+				},
+
+				## Input Slot
+				{
+					"name" : "MoneyValue",
+					"type" : "text",
+
+					"x" : 0,
+					"y" : BOARD_HEIGHT - 50,
+					"text" : "999999999",
+					"text_horizontal_align" : "center",
+					"horizontal_align" : "center",
+				},
+
+				## Button
+				{
+					"name" : "AcceptButton",
+					"type" : "button",
+
+					"x" : - 61 - 5 + 30,
+					"y" : BOARD_HEIGHT - 32,
+					"horizontal_align" : "center",
+
+					"text" : uiScriptLocale.OK,
+
+					"default_image" : "d:/ymir work/ui/public/middle_button_01.sub",
+					"over_image" : "d:/ymir work/ui/public/middle_button_02.sub",
+					"down_image" : "d:/ymir work/ui/public/middle_button_03.sub",
+				},
+				{
+					"name" : "Accept2Button",
+					"type" : "button",
+
+					"x" : -30 + 30,
+					"y" : 70,
+					"horizontal_align" : "center",
+
+					"text" : uiScriptLocale.SHOW_ITESMSS,
+
+					"default_image" : "d:/ymir work/ui/public/middle_button_01.sub",
+					"over_image" : "d:/ymir work/ui/public/middle_button_02.sub",
+					"down_image" : "d:/ymir work/ui/public/middle_button_03.sub",
+				},
+				{
+					"name" : "CancelButton",
+					"type" : "button",
+
+					"x" : 5 + 30,
+					"y" : BOARD_HEIGHT - 32,
+					"horizontal_align" : "center",
+
+					"text" : uiScriptLocale.CANCEL,
+
+					"default_image" : "d:/ymir work/ui/public/middle_button_01.sub",
+					"over_image" : "d:/ymir work/ui/public/middle_button_02.sub",
+					"down_image" : "d:/ymir work/ui/public/middle_button_03.sub",
+				},
+			),
+		},
+	),
+}
+
+
+
+
+
+
+
+OPEN NOW IN LOCALE    LOCALE_GAME.TXT  and  locale_interface.txt
+
+ADD
+
+SHOW_ITESMSS	PLAYER SHOW ITEMS IN SHOP
+
+
+
