@@ -1,12 +1,21 @@
 ---------------------------------------------------------------
 THIS COCE ONLY FOR SERVER WITH 0 YANG IN NPC
+If you do not have a server with 0 yang in npc then you do not need to make this small change in source shop.cpp
+
 In shop.cpp edit this:
 
 if (r_item.price < 0)
+
 To this:
 
 if (r_item.price < 0 || (IsPCShop() && r_item.price <= 0))
+
 ---------------------------------------------------------------
+
+
+
+
+
 
 1) Open uitooltip.py and search:
 
