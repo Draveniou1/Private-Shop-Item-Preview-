@@ -320,3 +320,34 @@ SHOW_ITESMSS	PLAYER SHOW ITEMS IN SHOP
 
 
 
+
+
+
+Edit: It will no longer message when you purchase the sample item
+ 
+Open uishop.py and search:
+
+            itemBuyQuestionDialog = uiCommon.QuestionDialog()
+            itemBuyQuestionDialog.SetText(localeInfo.DO_YOU_BUY_ITEM(itemName, itemCount, localeInfo.NumberToMoneyString(itemPrice)))
+            itemBuyQuestionDialog.SetAcceptEvent(lambda arg=TRUE: self.AnswerBuyItem(arg))
+            itemBuyQuestionDialog.SetCancelEvent(lambda arg=FALSE: self.AnswerBuyItem(arg))
+            itemBuyQuestionDialog.Open()
+            itemBuyQuestionDialog.pos = slotPos
+            self.itemBuyQuestionDialog = itemBuyQuestionDialog
+
+ 
+
+CHANGE WITH:
+
+ 
+
+        if itemPrice == 0 :
+            return;
+        else:
+            itemBuyQuestionDialog = uiCommon.QuestionDialog()
+            itemBuyQuestionDialog.SetText(localeInfo.DO_YOU_BUY_ITEM(itemName, itemCount, localeInfo.NumberToMoneyString(itemPrice)))
+            itemBuyQuestionDialog.SetAcceptEvent(lambda arg=TRUE: self.AnswerBuyItem(arg))
+            itemBuyQuestionDialog.SetCancelEvent(lambda arg=FALSE: self.AnswerBuyItem(arg))
+            itemBuyQuestionDialog.Open()
+            itemBuyQuestionDialog.pos = slotPos
+            self.itemBuyQuestionDialog = itemBuyQuestionDialog
