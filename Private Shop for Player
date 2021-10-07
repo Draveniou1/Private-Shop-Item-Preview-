@@ -1,3 +1,13 @@
+---------------------------------------------------------------
+THIS COCE ONLY FOR SERVER WITH 0 YANG IN NPC
+In shop.cpp edit this:
+
+if (r_item.price < 0)
+To this:
+
+if (r_item.price < 0 || (IsPCShop() && r_item.price <= 0))
+---------------------------------------------------------------
+
 1) Open uitooltip.py and search:
 
 	def AppendPrice(self, price):
