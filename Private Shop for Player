@@ -336,7 +336,7 @@ OPEN NOW IN LOCALE    LOCALE_GAME.TXT  and  locale_interface.txt
 ADD
 
 SHOW_ITESMSS	PLAYER SHOW ITEMS IN SHOP
-
+TOOLTIP_BUYPRICE_FREE	Not Sell items my friends
 
 
 
